@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kartu Ucapan Natal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #001f3f, #011);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      padding: 40px;
+      text-align: center;
+      max-width: 500px;
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 2;
+      color: #333;
+    }
+
+    .card h1 {
+      color: #b22222;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+    }
+
+    .signature {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #b22222;
+      font-size: 1.1em;
+    }
+
+    button, .share-btn {
+      margin: 8px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #b22222;
+      color: #fff;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover, .share-btn:hover {
+      background-color: #8b1a1a;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    audio { display: none; }
+
+    /* Pohon Natal PNG besar */
+    .tree-container {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 600px;   /* default desktop */
+      height: auto;
+      z-index: 1;
+    }
+
+    .tree-container img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Lampu kelap-kelip */
+    .light {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: red;
+      animation: twinkle 1s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Salju */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 20px;
+      animation: fall linear infinite;
+      z-index: 3;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* Kembang api */
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: yellow;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(20); opacity: 0; }
+    }
+
+    /* Responsif untuk mobile */
+    @media (max-width: 768px) {
+      .card { max-width: 90%; padding: 20px; }
+      .card h1 { font-size: 1.8em; }
+      .card p { font-size: 1em; }
+      button, .share-btn { font-size: 14px; padding: 10px 16px; }
+      .tree-container { width: 300px; left: 10px; bottom: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .card { max-width: 95%; padding: 15px; }
+      .card h1 { font-size: 1.5em; }
+      .card p { font-size: 0.9em; }
+      button, .share-btn { font-size: 12px; padding: 8px 12px; }
+      .tree-container { width: 200px; left: 5px; bottom: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎄 Selamat Natal 🎄</h1>
+    <p>Semoga damai, sukacita, dan kebahagiaan selalu menyertai Anda dan keluarga.</p>
+
+    <button onclick="playMusic()">▶️ Putar Musik</button>
+    <button onclick="pauseMusic()">⏸️ Hentikan Musik</button>
+    <button onclick="playBell()">🔔 Bunyi Bel</button>
+
+    <!-- Tombol Share dengan link GitHub Pages -->
+    <a class="share-btn" 
+       href="https://wa.me/?text=Selamat%20Natal%20🎄%20Semoga%20damai%20dan%20sukacita%20menyertai%20Anda%20dan%20keluarga.%20Lihat%20kartu%20interaktif%20di%20https://Ribkaelmelcia.github.io/kartu-natal" 
+       target="_blank">📱 Bagikan via WhatsApp</a>
+
+    <a class="share-btn" 
+       href="mailto:?subject=Selamat%20Natal&body=Selamat%20Natal%20🎄%20Semoga%20damai%20dan%20sukacita%20menyertai%20Anda%20dan%20keluarga.%20Lihat%20kartu%20interaktif%20di%20https://Ribkaelmelcia.github.io/kartu-natal" 
+       target="_blank">📧 Bagikan via Email</a>
+
+    <div class="signature">Elisa Ribka Elmelcia</div>
+  </div>
+
+  <!-- Pohon Natal PNG besar -->
+  <div class="tree-container">
+    <img src="pohon.png" alt="Pohon Natal">
+  </div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="natal.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="bellSound">
+    <source src="bell.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+    const bellSound = document.getElementById("bellSound");
+
+    function playMusic() { bgMusic.play(); }
+    function pauseMusic() { bgMusic.pause(); }
+    function playBell() { bellSound.currentTime = 0; bellSound.play(); }
+
+    // Salju
+    function createSnowflake() {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(snowflake);
+      setTimeout(() => snowflake.remove(), 5000);
+    }
+    setInterval(createSnowflake, 200);
+
+    // Kembang api
+    function createFirework() {
+      const firework = document.createElement("div");
+      firework.classList.add("firework");
+      firework.style.top = Math.random() * window.innerHeight + "px";
+      firework.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1500);
+    }
+    setInterval(createFirework, 2000);
+
+    // Lampu kelap-kelip di atas pohon besar
+    function createLights() {
+      const treeArea = document.querySelector(".tree-container");
+      for (let i = 0; i < 30; i++) {
+        const light = document.createElement("div");
+        light.classList.add("light");
+        light.style.position = "absolute";
+        light.style.top = (Math.random() * 500) + "px";
+        light.style.left = (Math.random() * 400) + "px";
+        light.style.background = ["red","yellow","blue","orange"][Math.floor(Math.random()*4)];
+        light.style.animationDuration = (Math.random()*1.5
